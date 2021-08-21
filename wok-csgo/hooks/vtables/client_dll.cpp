@@ -49,6 +49,8 @@ void __stdcall hooks::client_dll::create_move::fn(int sequence_number, float inp
 
 	movement->auto_strafer(cmd->m_view_angles); // shiiit.... ghetto strafer :o
 
+	fakelag->on_create_move(); // after update, before pred
+
 	movement->on_create_move(false);
 
 	engine_prediction->process();

@@ -19,6 +19,13 @@ void c_menu::on_paint() {
 
 		ImGui::Spacing();
 
+		ImGui::Checkbox(_("pointscale enable"), &cfg::get<bool>(FNV1A("point_scale")));
+
+		if (cfg::get<bool>(FNV1A("point_scale"))) {
+			ImGui::SliderFloat(_("head scale"), &cfg::get<float>(FNV1A("head_scale")), 0.1f, 1.f);
+			ImGui::SliderFloat(_("body scale"), &cfg::get<float>(FNV1A("body_scale")), 0.1f, 1.f);
+		}
+
 		ImGui::SliderInt(_("min damage"), &cfg::get<int>(FNV1A("min_damage")), 0, 120);
 		ImGui::SliderFloat(_("hitchane amount"), &cfg::get<float>(FNV1A("hitchance_amount")), 0.f, 100.f);
 
@@ -27,9 +34,6 @@ void c_menu::on_paint() {
 		ImGui::Checkbox(_("bunny hop"), &cfg::get<bool>(FNV1A("bunnyhop")));
 		ImGui::Checkbox(_("directional strafer"), &cfg::get<bool>(FNV1A("directional_strafer")));
 
-		ImGui::Spacing();
-		ImGui::Spacing();
-		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Spacing();
@@ -42,9 +46,11 @@ void c_menu::on_paint() {
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Spacing();
-		ImGui::Spacing();
-		ImGui::Spacing();
-		ImGui::Spacing();
+
+		ImGui::Checkbox(_("fakelag enable"), &cfg::get<bool>(FNV1A("fakelag_enable")));
+
+		if (cfg::get<bool>(FNV1A("fakelag_enable")))
+		ImGui::SliderInt(_("fakelag amount"), &cfg::get<int>(FNV1A("fakelag_amount")), 1, 16);
 
 		if (ImGui::Button(_("save"))) {
 			cfg::save();

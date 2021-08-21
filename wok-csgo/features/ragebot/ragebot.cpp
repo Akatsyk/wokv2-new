@@ -457,32 +457,30 @@ void c_ragebot::autostop() {
 float c_ragebot::point_scale(float radius, vec3_t pos, vec3_t point, int hitbox) {
 	auto weapon = globals::m_local->get_active_weapon();
 
-	float flPointScale;
-	float flScale;
-	float flEndScale = 0.f;
-	float flScaleState;
-	float ScaleState;
-	float pDist = 0.f;
+	float point_scale;
+	float scale;
+	float scale_state;
 
-	float  v6;
-	float  v7;
-
-
-	float g_flSpread = weapon->get_spread();
-	float g_flInaccurarcy = weapon->get_inaccuracy();
-	flScaleState = radius;
+	float spread = engine_prediction->get_spread();
+	float inaccuracy = engine_prediction->get_inaccuracy();
+	scale_state = radius;
 
 	if (!weapon)
 		return 0.f;
 
-	if (hitbox == HITBOX_HEAD)
-		flScale = 0.4f;
-	else if (hitbox == HITBOX_CHEST || hitbox == HITBOX_STOMACH || hitbox == HITBOX_PELVIS || hitbox == HITBOX_UPPER_CHEST)
-		flScale = 0.6f;
-	else
-		flScale = 0.2f;
+	if (cfg::get<bool>(FNV1A("point_scale"))) {
+		scale = 0.1f;
+	}
+	else {
+		if (hitbox == HITBOX_HEAD)
+			scale = cfg::get<float>(FNV1A("head_scale"));
+		else if (hitbox == HITBOX_CHEST || hitbox == HITBOX_STOMACH || hitbox == HITBOX_PELVIS || hitbox == HITBOX_UPPER_CHEST)
+			scale = cfg::get<float>(FNV1A("body_scale"));
+		else
+			scale = 0.1f;
+	}
 
-	flPointScale = (((flScale / 100.0) * 0.69999999) + 0.2) * radius;
+	point_scale = (((scale / 100.0) * 0.69999999) + 0.2) * radius;
 
-	return std::fminf(radius * 0.9f, flScale);
+	return std::fminf(radius * 0.9f, point_scale);
 }

@@ -12,3 +12,5 @@
 #include "visuals/visuals.h"
 
 #include "ragebot/bonesetup.h"
+
+#include "ragebot/fakelag.h"
