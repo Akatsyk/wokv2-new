@@ -365,6 +365,8 @@ public:
 
 		return vtable;
 	}
+
+	vec3_t get_hitbox_pos(int hitbox_id);
 };
 
 class c_base_combat_weapon : public c_base_attributable_item {

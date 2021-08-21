@@ -329,9 +329,36 @@ bool c_ragebot::is_able_to_shoot() {
 	return true;
 }
 
-vec3_t c_ragebot::scan(int* hitbox, int* est_damage) {
+std::vector<vec3_t> c_ragebot::get_hitbox(c_cs_player* player) {
 	std::vector<vec3_t> points = {};
 
+	if (!player)
+		return points;
+
+	if (cfg::get<int>(FNV1A("hitbox_num")) == 1) {
+		points.push_back({ player->get_hitbox_pos(HITBOX_HEAD) });
+		points.push_back({ player->get_hitbox_pos(HITBOX_NECK) });
+	}
+	if (cfg::get<int>(FNV1A("hitbox_num")) == 2) {
+		points.push_back({ player->get_hitbox_pos(HITBOX_STOMACH) });
+		points.push_back({ player->get_hitbox_pos(HITBOX_PELVIS) });
+		points.push_back({ player->get_hitbox_pos(HITBOX_CHEST) });
+		points.push_back({ player->get_hitbox_pos(HITBOX_LOWER_CHEST) });
+		points.push_back({ player->get_hitbox_pos(HITBOX_UPPER_CHEST) });
+	}
+	if (cfg::get<int>(FNV1A("hitbox_num")) == 3) {
+		points.push_back({ player->get_hitbox_pos(HITBOX_LEFT_FOREARM) });
+		points.push_back({ player->get_hitbox_pos(HITBOX_RIGHT_FOREARM) });
+	}
+	if (cfg::get<int>(FNV1A("hitbox_num")) == 4) {
+		points.push_back({ player->get_hitbox_pos(HITBOX_LEFT_FOOT) });
+		points.push_back({ player->get_hitbox_pos(HITBOX_RIGHT_FOOT) });
+	}
+
+	return points;
+}
+
+vec3_t c_ragebot::scan(int* hitbox, int* est_damage) {
 	auto index = m_player->get_index();
 
 	m_player->setup_bones(m_matrix, 128, BONE_FLAG_USED_BY_ANYTHING, m_player->get_sim_time()); // todo good rebuild buildbones ( wait next upd (:<) )
@@ -341,54 +368,7 @@ vec3_t c_ragebot::scan(int* hitbox, int* est_damage) {
 
 	static int hitscan_mode;
 
-	auto weapon = globals::m_local->get_active_weapon();
-	auto weapon_index = weapon->get_item_definition_index();
-
-	if (weapon_index == WEAPON_SSG_08 && globals::m_local->get_velocity().length_2d() > 170 && m_player->get_health() > 70)
-		hitscan_mode = 1;
-	else if (m_player->get_health() <= 60)
-		hitscan_mode = 2;
-	else if ((m_player->get_health() < 3) && (m_player->get_health() >= 80) && (weapon_index != WEAPON_AWP) && (weapon_index != WEAPON_R8_REVOLVER) && (weapon->get_cs_weapon_data()->m_damage < 150))
-		hitscan_mode = 1;
-	else {
-		hitscan_mode = 3;
-	}
-
-	switch (hitscan_mode) { // todo gethitboxpos :(((((
-	case 1:
-	{
-		points.push_back({ m_player->get_bone_pos(HITBOX_HEAD) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_NECK) });
-	}break;
-
-	case 2:
-	{
-		points.push_back({ m_player->get_bone_pos(HITBOX_STOMACH) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_PELVIS) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_CHEST) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_LOWER_CHEST) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_UPPER_CHEST) });
-	} break;
-
-	case 3:
-	{
-		points.push_back({ m_player->get_bone_pos(HITBOX_STOMACH) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_PELVIS) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_CHEST) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_LOWER_CHEST) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_UPPER_CHEST) });
-
-		points.push_back({ m_player->get_bone_pos(HITBOX_LEFT_FOREARM) });
-		points.push_back({ m_player->get_bone_pos(HITBOX_RIGHT_FOREARM) });
-
-		if (m_player->get_velocity().length_2d() <= 0.15f) {
-			points.push_back({ m_player->get_bone_pos(HITBOX_LEFT_CALF) });
-			points.push_back({ m_player->get_bone_pos(HITBOX_RIGHT_CALF) });
-			points.push_back({ m_player->get_bone_pos(HITBOX_LEFT_THIGH) });
-			points.push_back({ m_player->get_bone_pos(HITBOX_RIGHT_THIGH) });
-		}
-	} break;
-	}
+	auto points = get_hitbox(m_player);
 
 	int best_damage = 0;
 	vec3_t best_point = vec3_t(0, 0, 0);

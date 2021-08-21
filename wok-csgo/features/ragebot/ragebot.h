@@ -38,6 +38,8 @@ public:
 
 	float point_scale(float hitbox_radius, vec3_t pos, vec3_t point, int hitbox);
 
+	std::vector<vec3_t> get_hitbox(c_cs_player* player);
+
 	matrix3x4_t m_matrix[128];
 
 	c_user_cmd* cmd;

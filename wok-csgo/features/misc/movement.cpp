@@ -10,10 +10,43 @@ void c_movement::on_create_move(bool a1) {
 		return compute_buttons();
 	}
 
-
-	/* call all movement related stuff such as auto_strafe etc... here.... */
+	bunny_hop();
 
 	compute_buttons();
+}
+
+void c_movement::bunny_hop() {
+	if (!cfg::get<bool>(FNV1A("bunnyhop")))
+		return;
+
+	if (!globals::m_local->is_alive())
+		return;
+
+	if (globals::m_local->get_flags().has(FL_IN_WATER))
+		return;
+
+	static bool jumped_last_tick = false;
+	static bool should_fake_jump = true;
+
+	if (!jumped_last_tick && should_fake_jump) {
+		should_fake_jump = false;
+
+		globals::m_cur_cmd->m_buttons.add(IN_JUMP);
+	}
+	else if (globals::m_cur_cmd->m_buttons.has(IN_JUMP)) {
+		if (globals::m_local->get_flags().has(FL_ONGROUND)) {
+			jumped_last_tick = true;
+			should_fake_jump = true;
+		}
+		else {
+			globals::m_cur_cmd->m_buttons.remove(IN_JUMP);
+			jumped_last_tick = false;
+		}
+	}
+	else {
+		jumped_last_tick = false;
+		should_fake_jump = false;
+	}
 }
 
 void c_movement::rotate(const qangle_t& wish_angles) {

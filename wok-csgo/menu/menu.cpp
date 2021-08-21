@@ -14,8 +14,20 @@ void c_menu::on_paint() {
 		ImGui::Checkbox(_("autoscope enable"), &cfg::get<bool>(FNV1A("autoscope_enable")));
 		ImGui::Checkbox(_("autostop enable"), &cfg::get<bool>(FNV1A("autostop_enable")));
 
+		const char* hitboxes[] = { "none", "head", "body", "arms", "legs"};
+		ImGui::Combo(_("hitboxes"), &cfg::get<int>(FNV1A("hitbox_num")), hitboxes, IM_ARRAYSIZE(hitboxes));
+
+		ImGui::Spacing();
+
 		ImGui::SliderInt(_("min damage"), &cfg::get<int>(FNV1A("min_damage")), 0, 120);
 		ImGui::SliderFloat(_("hitchane amount"), &cfg::get<float>(FNV1A("hitchance_amount")), 0.f, 100.f);
+
+		ImGui::Spacing();
+
+		ImGui::Checkbox(_("bunny hop"), &cfg::get<bool>(FNV1A("bunnyhop")));
+
+		ImGui::Spacing();
+		ImGui::Spacing();
 
 		if (ImGui::Button(_("save"))) {
 			cfg::save();

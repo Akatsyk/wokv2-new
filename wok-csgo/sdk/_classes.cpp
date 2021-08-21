@@ -18,6 +18,28 @@ player_info_t c_cs_player::get_info() {
 	return ret;
 }
 
+vec3_t c_cs_player::get_hitbox_pos(int hitbox_id) {
+	matrix3x4_t bone_matrix[128];
+
+	if (setup_bones(bone_matrix, 128, BONE_FLAG_USED_BY_HITBOX, 0.0f)) {
+		auto studio_model = interfaces::m_model_info->get_studio_model(get_model());
+		if (studio_model) {
+			auto hitbox = studio_model->get_hitbox_set(0)->get_hitbox(hitbox_id);
+			if (hitbox) {
+				auto
+					min = vec3_t{},
+					max = vec3_t{};
+
+				math::vector_transform(hitbox->m_obb_min, bone_matrix[hitbox->m_bone], min);
+				math::vector_transform(hitbox->m_obb_max, bone_matrix[hitbox->m_bone], max);
+
+				return (min + max) / 2.0f;
+			}
+		}
+	}
+	return vec3_t{};
+}
+
 int c_base_animating::get_sequence_activity(int sequence) {
 	const auto model = get_model();
 	if (!model)
