@@ -121,6 +121,9 @@
     <ClCompile Include="features\visuals\visuals.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="features\ragebot\bonesetup.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common_includes.h" />
@@ -238,5 +241,6 @@
     <ClInclude Include="features\ragebot\autowall.h" />
     <ClInclude Include="features\ragebot\ragebot.h" />
     <ClInclude Include="features\visuals\visuals.h" />
+    <ClInclude Include="features\ragebot\bonesetup.h" />
   </ItemGroup>
 </Project>

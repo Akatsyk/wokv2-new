@@ -100,6 +100,7 @@
     <ClCompile Include="events\events.cpp" />
     <ClCompile Include="features\misc\movement.cpp" />
     <ClCompile Include="features\ragebot\autowall.cpp" />
+    <ClCompile Include="features\ragebot\bonesetup.cpp" />
     <ClCompile Include="features\ragebot\prediction.cpp" />
     <ClCompile Include="features\ragebot\ragebot.cpp" />
     <ClCompile Include="features\visuals\chams.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="features\features.h" />
     <ClInclude Include="features\misc\movement.h" />
     <ClInclude Include="features\ragebot\autowall.h" />
+    <ClInclude Include="features\ragebot\bonesetup.h" />
     <ClInclude Include="features\ragebot\prediction.h" />
     <ClInclude Include="features\ragebot\ragebot.h" />
     <ClInclude Include="features\visuals\chams.h" />

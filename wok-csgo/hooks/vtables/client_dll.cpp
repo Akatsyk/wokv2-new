@@ -59,8 +59,6 @@ void __stdcall hooks::client_dll::create_move::fn(int sequence_number, float inp
 
 	cmd->m_view_angles.sanitize();
 
-	globals::angles::m_anim = cmd->m_view_angles;
-
 	movement->on_create_move(true);
 
 	cmd->m_view_angles.sanitize();

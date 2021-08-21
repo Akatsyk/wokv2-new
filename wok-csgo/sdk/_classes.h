@@ -150,6 +150,9 @@ public:
 	__forceinline void invalidate_bone_cache() {
 		static const auto most_recent_model_bone_counter = **SIG("client.dll", "80 3D ? ? ? ? ? 74 16 A1 ? ? ? ? 48 C7 81").self_offset(0xA).cast<unsigned long**>();
 
+		get_occlusion_flags() = 0;
+		get_occlusion_frame_count() = 0;
+
 		get_last_setup_bones_time() = std::numeric_limits<float>::lowest();
 		get_most_recent_model_bone_counter() = most_recent_model_bone_counter - 1ul;
 	}

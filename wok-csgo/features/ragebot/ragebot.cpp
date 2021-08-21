@@ -361,7 +361,7 @@ std::vector<vec3_t> c_ragebot::get_hitbox(c_cs_player* player) {
 vec3_t c_ragebot::scan(int* hitbox, int* est_damage) {
 	auto index = m_player->get_index();
 
-	m_player->setup_bones(m_matrix, 128, BONE_FLAG_USED_BY_ANYTHING, m_player->get_sim_time()); // todo good rebuild buildbones ( wait next upd (:<) )
+	bone_setup->setup_bones_rebuild(m_player, BONE_FLAG_USED_BY_ANYTHING, m_matrix);
 
 	if (m_matrix == nullptr)
 		return vec3_t(0, 0, 0);

@@ -70,27 +70,26 @@ void c_movement::auto_strafer(qangle_t& angle) {
 		if (back) {
 			yaw = -180.f;
 			if (right)
-				yaw -= 35.f;  // 45.f what? 0___o 90 / 2
+				yaw -= 45.f;
 			else if (left)
-				yaw += 35.f;  // 45.f what? 0___o 90 / 2
+				yaw += 45.f;
 		}
 		else if (right) {
 			yaw = 90.f;
 			if (back)
-				yaw += 35.f;  // 45.f what? 0___o 90 / 2
+				yaw += 45.f;
 			else if (forward)
-				yaw -= 35.f;  // 45.f what? 0___o 90 / 2
+				yaw -= 45.f;
 		}
 		else if (left) {
 			yaw = -90.f;
 			if (back)
-				yaw -= 35.f; // 45.f what? 0___o 90 / 2
+				yaw -= 45.f;
 			else if (forward)
-				yaw += 35.f;  // 45.f what? 0___o 90 / 2
+				yaw += 45.f;
 		}
-		else {
+		else 
 			yaw = 0.f;
-		}
 
 		angle.y += yaw;
 

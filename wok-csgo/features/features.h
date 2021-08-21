@@ -10,3 +10,5 @@
 #include "ragebot/ragebot.h"
 
 #include "visuals/visuals.h"
+
+#include "ragebot/bonesetup.h"
