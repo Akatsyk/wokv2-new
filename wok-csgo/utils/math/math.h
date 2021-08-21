@@ -147,4 +147,5 @@ namespace math {
 	void angle_matrix(const qangle_t& angles, matrix3x4_t& matrix);
 	void concat_transform(const matrix3x4_t& in1, const matrix3x4_t& in2, matrix3x4_t& out);
 	float random_float(float min, float max);
+	float normalize_yaw(float yaw);
 }

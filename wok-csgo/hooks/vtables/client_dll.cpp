@@ -3,8 +3,7 @@
 void __stdcall hooks::client_dll::frame_stage_notify::fn(e_client_frame_stage stage) {
 	static const auto original = m_client_dll->get_original<T>(index);
 
-	if (stage == FRAME_RENDER_START
-		&& interfaces::m_engine->is_in_game()) {
+	if (stage == FRAME_RENDER_START && interfaces::m_engine->is_in_game()) {
 		interfaces::m_engine->get_view_angles(globals::angles::m_view);
 	}
 
@@ -38,8 +37,8 @@ void __stdcall hooks::client_dll::create_move::fn(int sequence_number, float inp
 		return;
 
 	const auto cmd = interfaces::m_input->get_user_cmd(sequence_number);
-	if (!cmd
-		|| !cmd->m_command_number)
+
+	if (!cmd || !cmd->m_command_number)
 		return;
 
 	globals::m_cur_cmd = cmd;
@@ -47,6 +46,8 @@ void __stdcall hooks::client_dll::create_move::fn(int sequence_number, float inp
 	movement->set_view_angles(cmd->m_view_angles);
 
 	engine_prediction->update();
+
+	movement->auto_strafer(cmd->m_view_angles); // shiiit.... ghetto strafer :o
 
 	movement->on_create_move(false);
 
@@ -61,6 +62,10 @@ void __stdcall hooks::client_dll::create_move::fn(int sequence_number, float inp
 	globals::angles::m_anim = cmd->m_view_angles;
 
 	movement->on_create_move(true);
+
+	cmd->m_view_angles.sanitize();
+
+	globals::angles::m_anim = cmd->m_view_angles;
 
 	packet = globals::m_packet;
 

@@ -76,6 +76,20 @@ namespace hooks {
 		}
 	}
 
+	namespace net_channel {
+		namespace process_packet {
+			constexpr auto index = 39u;
+			using T = void(__thiscall*)(void*, void*, bool);
+			void __fastcall fn(void* ecx, void* edx, void* packet, bool header);
+		}
+
+		namespace send_net_message {
+			constexpr auto index = 40u;
+			using T = bool(__thiscall*)(void*, i_net_msg&, bool, bool);
+			bool __fastcall fn(i_net_channel* net_chan, void* edx, i_net_msg& msg, bool reliable, bool voice);
+		}
+	}
+
 	namespace renderable {
 		namespace setup_bones {
 			constexpr auto index = 13u;
@@ -92,4 +106,5 @@ namespace hooks {
 	extern std::unique_ptr<memory::hook_t> m_surface;
 	extern std::unique_ptr<memory::hook_t> m_player;
 	extern std::unique_ptr<memory::hook_t> m_renderable;
+	extern std::unique_ptr<memory::hook_t> m_net_channel;
 }

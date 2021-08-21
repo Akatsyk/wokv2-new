@@ -18,6 +18,13 @@ namespace hooks {
 
 		// // // // // // // // // // // // // // // // // // // // // // //
 
+		m_net_channel = std::make_unique<memory::hook_t>(interfaces::m_client_state->m_net_channel);
+
+		m_net_channel->hook(net_channel::process_packet::index, net_channel::process_packet::fn);
+		m_net_channel->hook(net_channel::send_net_message::index, net_channel::send_net_message::fn);
+
+		// // // // // // // // // // // // // // // // // // // // // // //
+
 		m_client_mode = std::make_unique<memory::hook_t>(interfaces::m_client_mode);
 
 		m_client_mode->hook(client_mode::override_view::index, client_mode::override_view::fn);
@@ -64,6 +71,7 @@ namespace hooks {
 		m_client_mode->unhook();
 		m_client_dll->unhook();
 		m_d3d_device->unhook();
+		m_net_channel->unhook();
 	}
 
 	std::unique_ptr<memory::hook_t> m_d3d_device = nullptr;
@@ -74,4 +82,5 @@ namespace hooks {
 	std::unique_ptr<memory::hook_t> m_surface = nullptr;
 	std::unique_ptr<memory::hook_t> m_player = nullptr;
 	std::unique_ptr<memory::hook_t> m_renderable = nullptr;
+	std::unique_ptr<memory::hook_t> m_net_channel = nullptr;
 }

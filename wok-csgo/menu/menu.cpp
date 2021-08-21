@@ -25,6 +25,7 @@ void c_menu::on_paint() {
 		ImGui::Spacing();
 
 		ImGui::Checkbox(_("bunny hop"), &cfg::get<bool>(FNV1A("bunnyhop")));
+		ImGui::Checkbox(_("directional strafer"), &cfg::get<bool>(FNV1A("directional_strafer")));
 
 		ImGui::Spacing();
 		ImGui::Spacing();

@@ -47,6 +47,14 @@ namespace math {
 		return vAngle;
 	}
 
+    float normalize_yaw(float yaw) {
+        while (yaw < -180.f)
+            yaw += 360.f;
+        while (yaw > 180.f)
+            yaw -= 360.f;
+        return yaw;
+    }
+
     void matrix_copy(const matrix3x4_t& in, matrix3x4_t& out) {
         // Mutiny paste
         memcpy(&out, &in, sizeof(float) * 3 * 4);
