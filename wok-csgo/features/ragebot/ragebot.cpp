@@ -468,7 +468,7 @@ float c_ragebot::point_scale(float radius, vec3_t pos, vec3_t point, int hitbox)
 	if (!weapon)
 		return 0.f;
 
-	if (cfg::get<bool>(FNV1A("point_scale"))) {
+	if (!cfg::get<bool>(FNV1A("point_scale"))) {
 		scale = 0.1f;
 	}
 	else {
