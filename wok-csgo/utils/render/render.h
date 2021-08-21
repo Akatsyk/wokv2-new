@@ -31,6 +31,14 @@ namespace render {
 	void polygon(const std::vector<vec2_t>& points, const col_t& clr);
 
 	void polygon_filled(const std::vector<vec2_t>& points, const col_t& clr);
+
+	void rect_angle(int x1, int y1, int x2, int y2, col_t color, float thickness, float rounding);
+
+	void text_string(float x, float y, col_t color, int flags, ImFont* font, const char* message, ...);
+
+	void rect_filled_int(int x1, int y1, int x2, int y2, const col_t& clr);
+
+	bool world_to_screen(const vec3_t& in, vec3_t& out);
 	
 	extern std::mutex m_mutex;
 

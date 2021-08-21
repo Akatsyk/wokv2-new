@@ -90,6 +90,85 @@ namespace render {
 		m_draw_list->AddRectFilledMultiColor(*reinterpret_cast<const ImVec2*>(&pos), ImVec2(pos.x + size.x, pos.y + size.y), clr_upr_left.hex(), clr_upr_right.hex(), clr_bot_right.hex(), clr_bot_left.hex());
 	}
 
+	void rect_angle(int x1, int y1, int x2, int y2, col_t color, float thickness, float rounding) {
+		m_draw_list->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color.hex(), rounding, 15, thickness);
+	}
+
+	void rect_filled_int(int x1, int y1, int x2, int y2, const col_t& clr) {
+		m_draw_list->AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), clr.hex());
+	}
+
+	bool world_to_screen(const vec3_t& in, vec3_t& out) {
+		auto screen_transform = [](const vec3_t& in, vec3_t& out) -> bool {
+			static const auto& matrix = *reinterpret_cast<v_matrix*>(*SIG("client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9").self_offset(0x3).cast<uintptr_t*>() + 0xB0);
+
+			out.x = matrix[0][0] * in.x + matrix[0][1] * in.y + matrix[0][2] * in.z + matrix[0][3];
+			out.y = matrix[1][0] * in.x + matrix[1][1] * in.y + matrix[1][2] * in.z + matrix[1][3];
+
+			const auto w = matrix[3][0] * in.x + matrix[3][1] * in.y + matrix[3][2] * in.z + matrix[3][3];
+
+			if (w < 0.001f) {
+				out.x *= 100000.f;
+				out.y *= 100000.f;
+				return true;
+			}
+
+			const auto inv_w = 1.f / w;
+
+			out.x *= inv_w;
+			out.y *= inv_w;
+
+			return false;
+		};
+
+		if (!screen_transform(in, out)) {
+			out.x = (m_screen_size.x * 0.5f) + (out.x * m_screen_size.x) * 0.5f;
+			out.y = (m_screen_size.y * 0.5f) - (out.y * m_screen_size.y) * 0.5f;
+			return true;
+		}
+
+		return false;
+	}
+
+	void text_string(float x, float y, col_t color, int flags, ImFont* font, const char* message, ...) {
+		char output[1024] = {};
+		va_list args;
+		va_start(args, message);
+		vsprintf_s(output, message, args);
+		va_end(args);
+
+		if (!font->ContainerAtlas)
+			return;
+
+		m_draw_list->PushTextureID(font->ContainerAtlas->TexID);
+
+		auto coord = ImVec2(x, y);
+		auto size = ImGui::CalcTextSize(output);
+		auto coord_out = ImVec2{ coord.x + 1.f, coord.y + 1.f };
+		col_t outline_clr = col_t(0, 0, 0, 170);
+
+		int width = 0, height = 0;
+
+		if (!(flags & e_font_flags::FONT_CENTERED_X))
+			size.x = 0;
+		if (!(flags & e_font_flags::FONT_CENTERED_Y))
+			size.y = 0;
+		ImVec2 pos = ImVec2(coord.x - (size.x * .5), coord.y - (size.y * .5));
+
+
+		if (flags & e_font_flags::FONT_OUTLINE)
+		{
+			m_draw_list->AddText(font, 12.0f, ImVec2(pos.x + (1), pos.y + (1)), outline_clr.hex(), output);
+
+
+		}
+
+		m_draw_list->AddText(font, 12.0f, pos, color.hex(), output);
+
+		m_draw_list->PopTextureID();
+
+	}
+
 	void add_to_draw_list() {
 		const auto lock = std::unique_lock<std::mutex>(m_mutex, std::try_to_lock);
 		if (lock.owns_lock()) {
@@ -105,7 +184,7 @@ namespace render {
 
 		m_screen_size = *reinterpret_cast<vec2_t*>(&ImGui::GetIO().DisplaySize);
 
-		/* call ur visuals etc... here */
+		visuals->on_paint();
 
 		{
 			const auto lock = std::unique_lock<std::mutex>(m_mutex);

@@ -16,6 +16,11 @@ namespace cfg {
 		ADD_ITEM(int, "hitbox_num", 0);
 		ADD_ITEM(int, "min_damage", 0);
 		ADD_ITEM(float, "hitchance_amount", 0.f);
+
+		ADD_ITEM(bool, "visuals_enable", false);
+		ADD_ITEM(bool, "box_esp", false);
+		ADD_ITEM(bool, "name_esp", false);
+		ADD_ITEM(bool, "health_esp", false);
 	}
 
 	void save() {

@@ -118,6 +118,9 @@
     <ClCompile Include="hooks\vtables\net_channel.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="features\visuals\visuals.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common_includes.h" />
@@ -234,5 +237,6 @@
     <ClInclude Include="sdk\interfaces\i_render_view.h" />
     <ClInclude Include="features\ragebot\autowall.h" />
     <ClInclude Include="features\ragebot\ragebot.h" />
+    <ClInclude Include="features\visuals\visuals.h" />
   </ItemGroup>
 </Project>

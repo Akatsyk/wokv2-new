@@ -103,6 +103,7 @@
     <ClCompile Include="features\ragebot\prediction.cpp" />
     <ClCompile Include="features\ragebot\ragebot.cpp" />
     <ClCompile Include="features\visuals\chams.cpp" />
+    <ClCompile Include="features\visuals\visuals.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="hooks\vtables\client_dll.cpp" />
     <ClCompile Include="hooks\vtables\client_mode.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="features\ragebot\prediction.h" />
     <ClInclude Include="features\ragebot\ragebot.h" />
     <ClInclude Include="features\visuals\chams.h" />
+    <ClInclude Include="features\visuals\visuals.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="hooks\hooks.h" />
     <ClInclude Include="menu\menu.h" />

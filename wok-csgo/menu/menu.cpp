@@ -29,6 +29,22 @@ void c_menu::on_paint() {
 
 		ImGui::Spacing();
 		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+
+		ImGui::Checkbox(_("visuals enable"), &cfg::get<bool>(FNV1A("visuals_enable")));
+		ImGui::Checkbox(_("box esp"), &cfg::get<bool>(FNV1A("box_esp")));
+		ImGui::Checkbox(_("name esp"), &cfg::get<bool>(FNV1A("name_esp")));
+		ImGui::Checkbox(_("health esp"), &cfg::get<bool>(FNV1A("health_esp")));
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
 
 		if (ImGui::Button(_("save"))) {
 			cfg::save();

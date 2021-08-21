@@ -8,3 +8,5 @@
 #include "ragebot/autowall.h"
 
 #include "ragebot/ragebot.h"
+
+#include "visuals/visuals.h"

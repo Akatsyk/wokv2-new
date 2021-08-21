@@ -402,19 +402,19 @@ bool c_ragebot::run(vec3_t point, int index) {
 	float server_time = TICKS_TO_TIME(globals::m_local->get_tick_base());
 	bool can_shoot = is_able_to_shoot();
 
-	if (hitchaned) {
+	if (hitchaned && can_shoot) {
 		if (cfg::get<bool>(FNV1A("autoshoot_enable"))) {
 			cmd->m_buttons.add(IN_ATTACK);
+		}
+
+		if (cmd->m_buttons.has(IN_ATTACK)) {
+			cmd->m_view_angles = aim_angle;
 		}
 	}
 	else {
 		if (cfg::get<bool>(FNV1A("autoscope_enable")) && globals::m_local->get_active_weapon()->get_cs_weapon_data()->m_weapon_type == WEAPON_TYPE_SNIPER && !globals::m_local->is_scoped()) {
 			cmd->m_buttons.add(IN_ATTACK2);
 		}
-	}
-
-	if (cmd->m_buttons.has(IN_ATTACK)) {
-		cmd->m_view_angles = aim_angle;
 	}
 
 	if (cfg::get<bool>(FNV1A("autostop_enable"))) {
