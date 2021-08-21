@@ -4,6 +4,8 @@ Features included:
 
 -ragebot
 
+-fakelag
+
 -esp
 
 -bunnyhop (directional autostrafer)
