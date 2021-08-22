@@ -22,7 +22,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -110,6 +110,7 @@
     <ClCompile Include="hooks\vtables\client_dll.cpp" />
     <ClCompile Include="hooks\vtables\client_mode.cpp" />
     <ClCompile Include="hooks\vtables\d3d_device.cpp" />
+    <ClCompile Include="hooks\vtables\engine_client.cpp" />
     <ClCompile Include="hooks\vtables\model_render.cpp" />
     <ClCompile Include="hooks\vtables\net_channel.cpp" />
     <ClCompile Include="hooks\vtables\player.cpp" />

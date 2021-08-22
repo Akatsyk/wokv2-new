@@ -13,4 +13,5 @@ namespace globals {
 	extern c_local_player	m_local;
 	extern c_user_cmd*		m_cur_cmd;
 	extern bool				m_packet;
+	extern bool				m_setup_bones;
 }

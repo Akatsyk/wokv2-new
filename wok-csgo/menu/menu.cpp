@@ -22,8 +22,8 @@ void c_menu::on_paint() {
 		ImGui::Checkbox(_("pointscale enable"), &cfg::get<bool>(FNV1A("point_scale")));
 
 		if (cfg::get<bool>(FNV1A("point_scale"))) {
-			ImGui::SliderFloat(_("head scale"), &cfg::get<float>(FNV1A("head_scale")), 0.1f, 1.f);
-			ImGui::SliderFloat(_("body scale"), &cfg::get<float>(FNV1A("body_scale")), 0.1f, 1.f);
+			ImGui::SliderFloat(_("head scale"), &cfg::get<float>(FNV1A("head_scale")), 1.9f, 100.f);
+			ImGui::SliderFloat(_("body scale"), &cfg::get<float>(FNV1A("body_scale")), 1.0f, 100.f);
 		}
 
 		ImGui::SliderInt(_("min damage"), &cfg::get<int>(FNV1A("min_damage")), 0, 120);

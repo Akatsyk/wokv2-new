@@ -235,7 +235,6 @@ bool c_ragebot::get_multipoints(matrix3x4_t bones[], int index, std::vector<vec3
 		if (points.empty())
 			return false;
 
-
 		for (auto& p : points) {
 			p = { p.dot_product(matrix[0]), p.dot_product(matrix[1]), p.dot_product(matrix[2]) };
 
@@ -250,7 +249,6 @@ bool c_ragebot::get_multipoints(matrix3x4_t bones[], int index, std::vector<vec3
 
 		if (index == HITBOX_HEAD) {
 			points.push_back(center);
-
 
 			constexpr float rotation = 0.70710678f;
 
@@ -283,7 +281,6 @@ bool c_ragebot::get_multipoints(matrix3x4_t bones[], int index, std::vector<vec3
 		else if (index == HITBOX_RIGHT_CALF || index == HITBOX_LEFT_CALF) {
 			points.push_back(center);
 
-
 			points.push_back({ bbox->m_obb_max.x - (bbox->m_radius / 2.f), bbox->m_obb_max.y, bbox->m_obb_max.z });
 		}
 
@@ -299,7 +296,7 @@ bool c_ragebot::get_multipoints(matrix3x4_t bones[], int index, std::vector<vec3
 			return false;
 
 		for (auto& p : points)
-			math::vector_transform(p, bones[bbox->m_bone], p); // vec3_t -> i_transform & rotate ik dont tell me pls ;(
+			math::vector_transform(p, bones[bbox->m_bone], p); // vec3_t -> i_transform or rotate ik dont tell me pls ;(
 	}
 
 	return true;
@@ -459,11 +456,6 @@ float c_ragebot::point_scale(float radius, vec3_t pos, vec3_t point, int hitbox)
 
 	float point_scale;
 	float scale;
-	float scale_state;
-
-	float spread = engine_prediction->get_spread();
-	float inaccuracy = engine_prediction->get_inaccuracy();
-	scale_state = radius;
 
 	if (!weapon)
 		return 0.f;
@@ -477,7 +469,7 @@ float c_ragebot::point_scale(float radius, vec3_t pos, vec3_t point, int hitbox)
 		else if (hitbox == HITBOX_CHEST || hitbox == HITBOX_STOMACH || hitbox == HITBOX_PELVIS || hitbox == HITBOX_UPPER_CHEST)
 			scale = cfg::get<float>(FNV1A("body_scale"));
 		else
-			scale = 0.1f;
+			scale = 5.f;
 	}
 
 	point_scale = (((scale / 100.0) * 0.69999999) + 0.2) * radius;

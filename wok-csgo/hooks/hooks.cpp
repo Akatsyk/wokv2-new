@@ -25,6 +25,12 @@ namespace hooks {
 
 		// // // // // // // // // // // // // // // // // // // // // // //
 
+		m_engine_client = std::make_unique<memory::hook_t>(interfaces::m_engine);
+
+		m_engine_client->hook(engine_client::is_hltv::index, engine_client::is_hltv::fn);
+
+		// // // // // // // // // // // // // // // // // // // // // // //
+
 		m_client_mode = std::make_unique<memory::hook_t>(interfaces::m_client_mode);
 
 		m_client_mode->hook(client_mode::override_view::index, client_mode::override_view::fn);
@@ -72,6 +78,7 @@ namespace hooks {
 		m_client_dll->unhook();
 		m_d3d_device->unhook();
 		m_net_channel->unhook();
+		m_engine_client->unhook();
 	}
 
 	std::unique_ptr<memory::hook_t> m_d3d_device = nullptr;
@@ -83,4 +90,5 @@ namespace hooks {
 	std::unique_ptr<memory::hook_t> m_player = nullptr;
 	std::unique_ptr<memory::hook_t> m_renderable = nullptr;
 	std::unique_ptr<memory::hook_t> m_net_channel = nullptr;
+	std::unique_ptr<memory::hook_t> m_engine_client = nullptr;
 }

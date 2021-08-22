@@ -122,11 +122,7 @@ bool c_autowall::handle_bullet_penetration(c_cs_weapon_data* data, autowall_bull
 	auto solid_surf = (bullet.m_trace.m_contents >> 3) & CONTENTS_SOLID;
 	auto light_surf = (bullet.m_trace.m_surface.m_flags >> 7) & SURF_LIGHT;
 
-	if (bullet.m_walls_count <= 0
-		|| (!bullet.m_walls_count && !light_surf && !solid_surf && material != CHAR_TEX_GLASS && material != CHAR_TEX_GRATE)
-		|| data->m_penetration <= 0.f
-		|| (!trace_to_exit(&bullet.m_trace, bullet.m_trace.m_end_pos, bullet.m_dir, &trace)
-			&& !(interfaces::m_trace_system->get_point_contents(bullet.m_trace.m_end_pos, MASK_SHOT_HULL | CONTENTS_HITBOX, NULL) & (MASK_SHOT_HULL | CONTENTS_HITBOX))))
+	if (bullet.m_walls_count <= 0 || (!bullet.m_walls_count && !light_surf && !solid_surf && material != CHAR_TEX_GLASS && material != CHAR_TEX_GRATE) || data->m_penetration <= 0.f || (!trace_to_exit(&bullet.m_trace, bullet.m_trace.m_end_pos, bullet.m_dir, &trace) && !(interfaces::m_trace_system->get_point_contents(bullet.m_trace.m_end_pos, MASK_SHOT_HULL | CONTENTS_HITBOX, NULL) & (MASK_SHOT_HULL | CONTENTS_HITBOX))))
 		return false;
 
 	auto prop_surface_data = interfaces::m_surface_data->get_surface_data(trace.m_surface.m_surface_props);

@@ -98,6 +98,14 @@ namespace hooks {
 		}
 	}
 
+	namespace engine_client {
+		namespace is_hltv {
+			constexpr auto index = 93u;
+			using T = bool(__thiscall*)(void*);
+			bool __fastcall fn(void* ecx, void* edx);
+		}
+	}
+
 	extern std::unique_ptr<memory::hook_t> m_d3d_device;
 	extern std::unique_ptr<memory::hook_t> m_client_dll;
 	extern std::unique_ptr<memory::hook_t> m_client_mode;
@@ -107,4 +115,5 @@ namespace hooks {
 	extern std::unique_ptr<memory::hook_t> m_player;
 	extern std::unique_ptr<memory::hook_t> m_renderable;
 	extern std::unique_ptr<memory::hook_t> m_net_channel;
+	extern std::unique_ptr<memory::hook_t> m_engine_client;
 }

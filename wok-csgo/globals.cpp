@@ -10,4 +10,5 @@ namespace globals {
 	c_local_player	m_local = {};
 	c_user_cmd*		m_cur_cmd = nullptr;
 	bool			m_packet = true;
+	bool			m_setup_bones = false;
 }
