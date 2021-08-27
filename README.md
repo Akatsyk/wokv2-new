@@ -6,6 +6,8 @@ Features included:
 
 -ragebot
 
+-legitbot
+
 -fakelag
 
 -esp
