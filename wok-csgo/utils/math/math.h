@@ -148,4 +148,5 @@ namespace math {
 	void concat_transform(const matrix3x4_t& in1, const matrix3x4_t& in2, matrix3x4_t& out);
 	float random_float(float min, float max);
 	float normalize_yaw(float yaw);
+	float calc_fov(qangle_t& view_angle, const qangle_t& aim_angle);
 }

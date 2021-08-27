@@ -14,3 +14,5 @@
 #include "ragebot/bonesetup.h"
 
 #include "ragebot/fakelag.h"
+
+#include "legitbot/legitbot.h"

@@ -52,6 +52,14 @@ void c_menu::on_paint() {
 		if (cfg::get<bool>(FNV1A("fakelag_enable")))
 		ImGui::SliderInt(_("fakelag amount"), &cfg::get<int>(FNV1A("fakelag_amount")), 1, 16);
 
+		ImGui::Checkbox(_("legitbot enable"), &cfg::get<bool>(FNV1A("legitbot_enable")));
+		ImGui::Checkbox(_("silent"), &cfg::get<bool>(FNV1A("legitbot_silent")));
+		ImGui::SliderFloat(_("smooth"), &cfg::get<float>(FNV1A("legitbot_smooth")), 1.f, 20.f);
+		ImGui::SliderFloat(_("FOV"), &cfg::get<float>(FNV1A("legitbot_fov")), 1.f, 180.f);
+
+		const char* legit_hitboxes[] = { "none", "head", "body", "arms", "legs" };
+		ImGui::Combo(_("legit hitboxes"), &cfg::get<int>(FNV1A("legitbot_hitbox_num")), legit_hitboxes, IM_ARRAYSIZE(legit_hitboxes));
+
 		if (ImGui::Button(_("save"))) {
 			cfg::save();
 		}

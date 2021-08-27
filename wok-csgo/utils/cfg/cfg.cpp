@@ -27,6 +27,12 @@ namespace cfg {
 
 		ADD_ITEM(bool, "fakelag_enable", false);
 		ADD_ITEM(int, "fakelag_amount", 1);
+
+		ADD_ITEM(bool, "legitbot_enable", false);
+		ADD_ITEM(float, "legitbot_fov", 0.f);
+		ADD_ITEM(int, "legitbot_hitbox_num", 0);
+		ADD_ITEM(bool, "legitbot_silent", false);
+		ADD_ITEM(float, "legitbot_smooth", false);
 	}
 
 	void save() {

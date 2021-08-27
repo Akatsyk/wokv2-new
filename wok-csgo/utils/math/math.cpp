@@ -106,20 +106,19 @@ namespace math {
     }
 
     void concat_transform(const matrix3x4_t& in1, const matrix3x4_t& in2, matrix3x4_t& out) {
-        if (&in1 == &out)
-        {
+        if (&in1 == &out) {
             matrix3x4_t in1b;
             matrix_copy(in1, in1b);
             concat_transform(in1b, in2, out);
             return;
         }
-        if (&in2 == &out)
-        {
+        if (&in2 == &out) {
             matrix3x4_t in2b;
             matrix_copy(in2, in2b);
             concat_transform(in1, in2b, out);
             return;
         }
+
         out[0][0] = in1[0][0] * in2[0][0] + in1[0][1] * in2[1][0] +
             in1[0][2] * in2[2][0];
         out[0][1] = in1[0][0] * in2[0][1] + in1[0][1] * in2[1][1] +
@@ -152,8 +151,7 @@ namespace math {
         out[2] = in1.dot_product(in2[2]) + in2[2][3];
     }
 
-    vec3_t cross_product(const vec3_t& a, const vec3_t& b)
-    {
+    vec3_t cross_product(const vec3_t& a, const vec3_t& b) {
         return vec3_t(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
     }
 
@@ -164,16 +162,14 @@ namespace math {
 
         float forwardDist = forward.length_2d();
 
-        if (forwardDist > 0.001f)
-        {
+        if (forwardDist > 0.001f) {
             angles.x = atan2f(-forward.z, forwardDist) * 180 / math::m_pi;
             angles.y = atan2f(forward.y, forward.x) * 180 / math::m_pi;
 
             float upZ = (left.y * forward.x) - (left.x * forward.y);
             angles.z = atan2f(left.z, upZ) * 180 / math::m_pi;
         }
-        else
-        {
+        else {
             angles.x = atan2f(-forward.z, forwardDist) * 180 / math::m_pi;
             angles.y = atan2f(-left.x, left.y) * 180 / math::m_pi;
             angles.z = 0;
@@ -181,7 +177,7 @@ namespace math {
     }
 
     void vector_angles(const vec3_t& forward, qangle_t& angles) {
-        float	tmp, yaw, pitch;
+        float tmp, yaw, pitch;
 
         if (forward[1] == 0 && forward[0] == 0) {
             yaw = 0;
@@ -206,15 +202,20 @@ namespace math {
         angles.z = 0;
     }
 
+    float calc_fov(qangle_t& view_angle, const qangle_t& aim_angle) {
+        vec3_t view, aim;
+
+        angle_vectors(view_angle, &aim);
+        angle_vectors(aim_angle, &view);
+
+        return math::rad_to_deg(std::acos(aim.dot_product(view) / aim.length_sqr()));
+    }
+
     float random_float(float min, float max) {
-        static auto ranFloat = reinterpret_cast<float(*)(float, float)>(GetProcAddress(GetModuleHandleW(L"vstdlib.dll"), "RandomFloat"));
-        if (ranFloat)
-        {
-            return ranFloat(min, max);
-        }
+        static auto random = reinterpret_cast<float(*)(float, float)>(GetProcAddress(GetModuleHandleW(L"vstdlib.dll"), "RandomFloat"));
+        if (random)
+            return random(min, max);
         else
-        {
             return 0.f;
-        }
     }
 }

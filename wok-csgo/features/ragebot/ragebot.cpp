@@ -65,7 +65,7 @@ int c_ragebot::find_target() {
 
 		vec3_t points[7];
 
-		points[0] = player->get_bone_pos(0);
+		points[0] = player->get_hitbox_pos(HITBOX_HEAD);
 		points[1] = (obb_min + obb_max) * 0.5f;
 		points[2] = vec3_t((obb_max.x + obb_min.x) * 0.5f, (obb_max.y + obb_min.y) * 0.5f, obb_min.z);
 

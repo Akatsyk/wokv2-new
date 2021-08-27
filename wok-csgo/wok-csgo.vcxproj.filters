@@ -130,6 +130,9 @@
     <ClCompile Include="hooks\vtables\engine_client.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="features\legitbot\legitbot.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common_includes.h" />
@@ -249,5 +252,6 @@
     <ClInclude Include="features\visuals\visuals.h" />
     <ClInclude Include="features\ragebot\bonesetup.h" />
     <ClInclude Include="features\ragebot\fakelag.h" />
+    <ClInclude Include="features\legitbot\legitbot.h" />
   </ItemGroup>
 </Project>

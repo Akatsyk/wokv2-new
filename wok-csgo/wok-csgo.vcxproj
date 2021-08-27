@@ -98,6 +98,7 @@
   <ItemGroup>
     <ClCompile Include="events\callbacks\player_hurt.cpp" />
     <ClCompile Include="events\events.cpp" />
+    <ClCompile Include="features\legitbot\legitbot.cpp" />
     <ClCompile Include="features\misc\movement.cpp" />
     <ClCompile Include="features\ragebot\autowall.cpp" />
     <ClCompile Include="features\ragebot\bonesetup.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="common_includes.h" />
     <ClInclude Include="events\events.h" />
     <ClInclude Include="features\features.h" />
+    <ClInclude Include="features\legitbot\legitbot.h" />
     <ClInclude Include="features\misc\movement.h" />
     <ClInclude Include="features\ragebot\autowall.h" />
     <ClInclude Include="features\ragebot\bonesetup.h" />

@@ -55,6 +55,8 @@ void __stdcall hooks::client_dll::create_move::fn(int sequence_number, float inp
 
 	engine_prediction->process();
 
+	legitbot->on_create_move(cmd);
+
 	ragebot->on_create_move(cmd);
 
 	engine_prediction->restore();
