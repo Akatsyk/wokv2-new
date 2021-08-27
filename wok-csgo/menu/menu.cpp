@@ -27,7 +27,7 @@ void c_menu::on_paint() {
 		}
 
 		ImGui::SliderInt(_("min damage"), &cfg::get<int>(FNV1A("min_damage")), 0, 120);
-		ImGui::SliderFloat(_("hitchane amount"), &cfg::get<float>(FNV1A("hitchance_amount")), 0.f, 100.f);
+		ImGui::SliderFloat(_("hitchance amount"), &cfg::get<float>(FNV1A("hitchance_amount")), 0.f, 100.f);
 
 		ImGui::Spacing();
 
