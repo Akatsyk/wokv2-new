@@ -1,6 +1,6 @@
 wok v2 sdk with new features
 
-contacts: inftonullptr#0054 | vk.com/infto0
+contacts: qiaowex#7777 | vk.com/infto0
 
 Features included:
 
